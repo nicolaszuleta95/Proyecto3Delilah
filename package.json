@@ -1,0 +1,25 @@
+{
+  "name": "delilah",
+  "version": "1.0.0",
+  "description": "backend project that emulates a restaurant application",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicolaszuleta95/Proyecto3Delilah.git"
+  },
+  "author": "nz95",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nicolaszuleta95/Proyecto3Delilah/issues"
+  },
+  "homepage": "https://github.com/nicolaszuleta95/Proyecto3Delilah#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
