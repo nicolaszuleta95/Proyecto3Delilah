@@ -7,11 +7,11 @@ info:
     email: "nicolaszuleta95@gmail.com"
 tags:
   - name: "users"
-    description: "Operaciones con los usuarios"
+    description: "User operations"
   - name: "dishes"
-    description: "Operaciones con los platos"
+    description: "Dishes operations"
   - name: "orders"
-    description: "Operaciones con los pedidos"
+    description: "Order operations"
 schemes:
 - "https"
 - "http"
@@ -20,13 +20,13 @@ paths:
     post:
       tags:
       - "users"
-      summary: "registrar un nuevo usuario"
+      summary: "register a new user"
       description: ""
       operationId: "newUser"
       parameters:
       - in: "body"
         name: "body"
-        description: "Objeto propietario para asignar a un edificio"
+        description: "Object to add to a user"
         required: true
         schema:
           $ref: "#/definitions/users"
@@ -36,11 +36,35 @@ paths:
         "400":
           description: "Invalid input"
   /dish:
+    post:
+      tags:
+        - "dishes"
+      summary: "Add a new dish"
+      description: "Add a new dish"
+      operationId: "postDish"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Dish object that needs to be added"
+        required: true
+        schema:
+          $ref: "#/definitions/dishes"
+      responses:
+        "200":
+          description: "Added dish successfully"
+        "405":
+            description: "Invalid input"
     get:
       tags:
       - "dishes"
-      summary: "Listar todos los platos"
-      description: ""
+      summary: "Get all the dishes"
+      description: "Get all the dishes"
       operationId: "getDishes"
       responses:
         "200":
@@ -51,6 +75,67 @@ paths:
               $ref: '#/definitions/dishes'
         "404":
           description: "Not Found"
+  /dish/{dish_id}:
+    get:
+      tags:
+        - "dishes"
+      summary: "Get a dish by it's ID"
+      parameters:
+      - name: "dish_ID"
+        in: "path"
+        description: "ID of dish to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/dishes"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Dish not found"
+    delete:
+      tags:
+      - "dishes"
+      summary: "Delete a dish"
+      parameters:
+        - name: dish_id
+          in: path
+          description: "ID of the dish to delete"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        '200':
+          description: "Deleted dish successfully"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Dish not found"
+    put:
+      tags:
+      - "dishes"
+      summary: "Update an existing dish"
+      description: ""
+      operationId: "updateDish"
+      parameters:
+      - in: path
+        name: dish_id
+        required: true
+        type: integer
+      - in: body
+        name: Producto
+        schema:
+          $ref: '#/definitions/dishes'
+      responses:
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Dish not found"
+        "405":
+          description: "Validation exception"
 definitions:
   users:
     type: "object"
