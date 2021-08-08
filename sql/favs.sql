@@ -1,0 +1,8 @@
+CREATE TABLE Delilah_db.favs (
+	user_ID INT NOT NULL,
+	dish_ID INT NOT NULL,
+	CONSTRAINT favs_PK PRIMARY KEY (user_ID)
+)
+ENGINE=InnoDB
+DEFAULT CHARSET=utf8mb4
+COLLATE=utf8mb4_0900_ai_ci;
