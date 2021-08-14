@@ -6,17 +6,32 @@ const UserModel = require("../models/users");
 
 const User = new UserModel(sequelize, Sequelize);
 
-sequelize
-  .sync({ force: true })
-  .then(() => {
-    bulkCreate();
-  })
-  .then(() => {
-    console.log("All models were synchronized successfully.");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+const { DB_ENV } = process.env;
+
+if (DB_ENV === "prod") {
+  sequelize
+    .sync()
+    .then(() => {
+      console.log("All models were synchronized successfully.");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+} else if (DB_ENV === "dev") {
+  sequelize
+    .sync({ force: true })
+    .then(() => {
+      bulkCreate();
+    })
+    .then(() => {
+      console.log(
+        "All models were synchronized successfully with the dev rows created in bulk."
+      );
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
 
 module.exports = {
   User,
