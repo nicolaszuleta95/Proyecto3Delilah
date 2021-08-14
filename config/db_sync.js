@@ -10,6 +10,8 @@ sequelize
   .sync({ force: true })
   .then(() => {
     bulkCreate();
+  })
+  .then(() => {
     console.log("All models were synchronized successfully.");
   })
   .catch((err) => {
