@@ -1,4 +1,5 @@
 require("dotenv").config();
+require("./config/db_sync");
 const express = require("express");
 const helmet = require("helmet");
 const compression = require("compression");
