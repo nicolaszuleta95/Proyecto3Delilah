@@ -1,5 +1,9 @@
 const UserModel = require("../models/users");
 
+/**
+ * TODO: Fix the validation so that wrong data wont populate the database
+ */
+
 function bulkCreate() {
   UserModel.bulkCreate([
     {
@@ -9,7 +13,7 @@ function bulkCreate() {
       fullname: "administrador admin",
       address: "calle Admin",
       phone: "1234567",
-      user_type: "blabla",
+      user_type: "blabla", //! this is an error validation should work and its not working
     },
     {
       username: "cliente1",
