@@ -1,5 +1,6 @@
 const UserModel = require("../models/users");
 const DishModel = require("../models/dishes");
+const ItemModel = require("../models/items");
 
 /**
  * This function creates records for each table in bulk
@@ -56,6 +57,43 @@ function bulkCreate() {
         category: "Sopas",
         photo:
           "https://images.pexels.com/photos/674574/pexels-photo-674574.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+      },
+    ],
+    { validate: true }
+  ).catch((errors) => {
+    console.log(errors);
+  });
+  ItemModel.bulkCreate(
+    [
+      {
+        order_ID: "1",
+        dish_ID: "1",
+        quantity: "2",
+        price: "200",
+      },
+      {
+        order_ID: "1",
+        dish_ID: "2",
+        quantity: "1",
+        price: "150",
+      },
+      {
+        order_ID: "2",
+        dish_ID: "2",
+        quantity: "1",
+        price: "150",
+      },
+      {
+        order_ID: "3",
+        dish_ID: "3",
+        quantity: "2",
+        price: "100",
+      },
+      {
+        order_ID: "3",
+        dish_ID: "1",
+        quantity: "1",
+        price: "100",
       },
     ],
     { validate: true }
