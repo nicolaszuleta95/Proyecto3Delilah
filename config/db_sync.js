@@ -3,8 +3,10 @@ const sequelize = require("./connection");
 const bulkCreate = require("./bulkCreate");
 
 const UserModel = require("../models/users");
+const DishModel = require("../models/dishes");
 
 const User = new UserModel(sequelize, Sequelize);
+const Dish = new DishModel(sequelize, Sequelize);
 
 const { DB_ENV } = process.env;
 
@@ -35,4 +37,5 @@ if (DB_ENV === "prod") {
 
 module.exports = {
   User,
+  Dish,
 };
