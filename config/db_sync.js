@@ -6,11 +6,13 @@ const UserModel = require("../models/users");
 const DishModel = require("../models/dishes");
 const ItemModel = require("../models/items");
 const OrderModel = require("../models/orders");
+const FavModel = require("../models/favs");
 
 const User = new UserModel(sequelize, Sequelize);
 const Dish = new DishModel(sequelize, Sequelize);
 const Item = new ItemModel(sequelize, Sequelize);
 const Order = new OrderModel(sequelize, Sequelize);
+const Fav = new FavModel(sequelize, Sequelize);
 
 const { DB_ENV } = process.env;
 
@@ -44,4 +46,5 @@ module.exports = {
   Dish,
   Item,
   Order,
+  Fav,
 };

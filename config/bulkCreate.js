@@ -2,6 +2,7 @@ const UserModel = require("../models/users");
 const DishModel = require("../models/dishes");
 const ItemModel = require("../models/items");
 const OrderModel = require("../models/orders");
+const FavModel = require("../models/favs");
 
 /**
  * This function creates records for each table in bulk
@@ -123,6 +124,21 @@ function bulkCreate() {
         state: "NUEVO",
         address: "calle Cliente",
         pay_type: "Credito",
+      },
+    ],
+    { validate: true }
+  ).catch((errors) => {
+    console.log(errors);
+  });
+  FavModel.bulkCreate(
+    [
+      {
+        user_ID: 1,
+        dish_ID: 2,
+      },
+      {
+        user_ID: 2,
+        dish_ID: 1,
       },
     ],
     { validate: true }
