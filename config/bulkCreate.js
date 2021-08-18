@@ -1,6 +1,7 @@
 const UserModel = require("../models/users");
 const DishModel = require("../models/dishes");
 const ItemModel = require("../models/items");
+const OrderModel = require("../models/orders");
 
 /**
  * This function creates records for each table in bulk
@@ -36,7 +37,7 @@ function bulkCreate() {
     [
       {
         name: "Spaghetti",
-        price: "100",
+        price: 100,
         description: "Delicioso Spaghetti con salsa napolitana",
         category: "Pastas",
         photo:
@@ -44,7 +45,7 @@ function bulkCreate() {
       },
       {
         name: "Solomito",
-        price: "150",
+        price: 150,
         description: "Filete de solomito jugoso",
         category: "Carnes",
         photo:
@@ -52,7 +53,7 @@ function bulkCreate() {
       },
       {
         name: "Sopa de Arroz",
-        price: "50",
+        price: 50,
         description: "Sopita de Arroz con verduras",
         category: "Sopas",
         photo:
@@ -66,34 +67,62 @@ function bulkCreate() {
   ItemModel.bulkCreate(
     [
       {
-        order_ID: "1",
-        dish_ID: "1",
-        quantity: "2",
-        price: "200",
+        order_ID: 1,
+        dish_ID: 1,
+        quantity: 2,
+        price: 200,
       },
       {
-        order_ID: "1",
-        dish_ID: "2",
-        quantity: "1",
-        price: "150",
+        order_ID: 1,
+        dish_ID: 2,
+        quantity: 1,
+        price: 150,
       },
       {
-        order_ID: "2",
-        dish_ID: "2",
-        quantity: "1",
-        price: "150",
+        order_ID: 2,
+        dish_ID: 2,
+        quantity: 1,
+        price: 150,
       },
       {
-        order_ID: "3",
-        dish_ID: "3",
-        quantity: "2",
-        price: "100",
+        order_ID: 3,
+        dish_ID: 3,
+        quantity: 2,
+        price: 100,
       },
       {
-        order_ID: "3",
-        dish_ID: "1",
-        quantity: "1",
-        price: "100",
+        order_ID: 3,
+        dish_ID: 1,
+        quantity: 1,
+        price: 100,
+      },
+    ],
+    { validate: true }
+  ).catch((errors) => {
+    console.log(errors);
+  });
+  OrderModel.bulkCreate(
+    [
+      {
+        user_ID: 2,
+        total: 350,
+        state: "ENTREGADO",
+        address: "calle Cliente",
+        pay_type: "Efectivo",
+      },
+      {
+        user_ID: 2,
+        total: 150,
+        state: "ENTREGADO",
+        address: "calle Cliente",
+        pay_type: "Credito",
+      },
+      {
+        user_ID: 2,
+        total: 200,
+        state: "NUEVO",
+        address: "calle Cliente",
+        pay_type: "Credito",
       },
     ],
     { validate: true }

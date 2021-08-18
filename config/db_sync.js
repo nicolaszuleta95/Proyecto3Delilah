@@ -5,10 +5,12 @@ const bulkCreate = require("./bulkCreate");
 const UserModel = require("../models/users");
 const DishModel = require("../models/dishes");
 const ItemModel = require("../models/items");
+const OrderModel = require("../models/orders");
 
 const User = new UserModel(sequelize, Sequelize);
 const Dish = new DishModel(sequelize, Sequelize);
 const Item = new ItemModel(sequelize, Sequelize);
+const Order = new OrderModel(sequelize, Sequelize);
 
 const { DB_ENV } = process.env;
 
@@ -41,4 +43,5 @@ module.exports = {
   User,
   Dish,
   Item,
+  Order,
 };
