@@ -6,8 +6,6 @@ info:
   contact:
     email: "nicolaszuleta95@gmail.com"
 tags:
-  - name: "users"
-    description: "User operations"
   - name: "dishes"
     description: "Dishes operations"
   - name: "orders"
@@ -60,25 +58,6 @@ paths:
           description: Error
         401:
           description: 'Login credentials error'
-  /user:
-    post:
-      tags:
-      - "users"
-      summary: "register a new user"
-      description: ""
-      operationId: "newUser"
-      parameters:
-      - in: "body"
-        name: "user"
-        description: "Object to add to a user"
-        required: true
-        schema:
-          $ref: "#/definitions/users"
-      responses:
-        "200":
-          description: "user registered successfully"
-        "400":
-          description: "Invalid input"
   /dish:
     post:
       tags:
