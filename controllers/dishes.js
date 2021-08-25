@@ -44,3 +44,22 @@ exports.getDish = async (req, res) => {
     res.status(400).send({ error: "Unable to find the dish" });
   }
 };
+
+exports.deleteDish = async (req, res) => {
+  const { dish_ID } = req.params;
+  const query = {};
+
+  query.where = { dish_ID: dish_ID };
+
+  try {
+    const dish = await Dish.findOne(query);
+    if (dish) {
+      dish.destroy();
+      res.send("Dish deleted successfully");
+    } else {
+      res.send({ error: `Dish ${dish_ID} not found` });
+    }
+  } catch (err) {
+    res.status(400).send({ error: "Unable to delete the dish" });
+  }
+};
