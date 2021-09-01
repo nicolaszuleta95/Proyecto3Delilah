@@ -63,3 +63,32 @@ exports.deleteDish = async (req, res) => {
     res.status(400).send({ error: "Unable to delete the dish" });
   }
 };
+
+exports.updateDish = async (req, res) => {
+  const { dish_ID } = req.params;
+  const { name, price, description, category, photo } = req.body;
+  const query = {};
+
+  query.where = { dish_ID: dish_ID };
+
+  try {
+    const dish = await Dish.findOne(query);
+    if (dish) {
+      const updateCount = await Dish.update(
+        {
+          name,
+          price,
+          description,
+          category,
+          photo,
+        },
+        query
+      );
+      res.send({ message: `Dish ${dish_ID} updated successfully` });
+    } else {
+      res.send({ error: `Dish ${dish_ID} not found` });
+    }
+  } catch (err) {
+    res.status(400).send({ error: "Not able to update the dish" });
+  }
+};
