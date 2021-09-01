@@ -4,6 +4,10 @@ const Fav = require("./favs");
 const Item = require("./items");
 const Order = require("./orders");
 
+/**
+ * TODO check the relationships they are wrong
+ */
+
 Order.belongsTo(User, { foreignKey: { allowNull: false } });
 Order.belongsToMany(Dish, { through: Item });
 Order.hasMany(Item);
