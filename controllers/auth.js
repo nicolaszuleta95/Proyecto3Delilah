@@ -54,7 +54,7 @@ exports.login = async (req, res) => {
   }
 };
 
-exports.checkDuplicateUsernameOrEmail = async (req, res) => {
+exports.checkDuplicateUsernameOrEmail = async (req, res, next) => {
   // Username
   User.findOne({
     where: {

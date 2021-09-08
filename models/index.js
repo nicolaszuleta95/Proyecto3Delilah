@@ -8,20 +8,20 @@ const Order = require("./orders");
  * TODO check the relationships they are wrong
  */
 
-Order.belongsTo(User, { foreignKey: { allowNull: false } });
-Order.belongsToMany(Dish, { through: Item });
-Order.hasMany(Item);
+User.hasMany(Order);
+User.hasMany(Fav);
 
-Dish.belongsToMany(Order, { through: Item });
-Dish.belongsToMany(User, { through: Fav });
+Dish.hasMany(Fav);
 Dish.hasMany(Item);
 
+Fav.belongsTo(User);
+Fav.belongsTo(Dish);
+
 Item.belongsTo(Dish);
+Item.belongsTo(Order);
 
-User.belongsToMany(Dish, { through: Fav });
-User.hasMany(Order);
-
-Fav.belongsTo(User, { onDelete: "cascade" });
+Order.hasMany(Item);
+Order.belongsTo(User);
 
 module.exports = {
   User,
