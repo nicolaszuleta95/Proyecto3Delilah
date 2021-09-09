@@ -104,6 +104,50 @@ exports.getOrder = async (req, res, next) => {
   }
 };
 
-exports.deleteOrder = async (req, res) => {};
+exports.deleteOrder = async (req, res) => {
+  const { order_ID } = req.params;
+  const query = {};
 
-exports.updateOrder = async (req, res) => {};
+  query.where = { order_ID: order_ID };
+
+  try {
+    const order = await Order.findOne(query);
+    if (order) {
+      order.destroy();
+      res.send("Order deleted successfully");
+    } else {
+      res.send({ error: `Order ${order_ID} not found` });
+    }
+  } catch (err) {
+    res.status(400).send({ error: "Unable to delete the Order" });
+  }
+};
+
+exports.updateOrder = async (req, res) => {
+  const { order_ID } = req.params;
+  const { user_ID, total, state, address, pay_type } = req.body;
+  const query = {};
+
+  query.where = { order_ID: order_ID };
+
+  try {
+    const order = await Order.findOne(query);
+    if (order) {
+      const updateCount = await Order.update(
+        {
+          user_ID,
+          total,
+          state,
+          address,
+          pay_type,
+        },
+        query
+      );
+      res.send({ message: `Order ${order_ID} updated successfully` });
+    } else {
+      res.send({ error: `Order ${order_ID} not found` });
+    }
+  } catch (err) {
+    res.status(400).send({ error: "Not able to update the order" });
+  }
+};
