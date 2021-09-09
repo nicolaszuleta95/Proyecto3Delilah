@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const { Order, User, Item } = require("../models");
 
 exports.addOrder = async (req, res) => {
@@ -51,8 +52,9 @@ exports.getOrders = async (req, res) => {
       Order.findAll(query).then((order) => {
         if (order.length == 0) {
           res.send("No Orders stored for that user");
+        } else {
+          res.json(order);
         }
-        res.json(order);
       });
     } catch (error) {
       res.status(400).send({ error: "Error getting all the Orders" });
@@ -64,7 +66,43 @@ exports.getOrders = async (req, res) => {
   }
 };
 
-exports.getOrder = async (req, res) => {};
+exports.getOrder = async (req, res, next) => {
+  const { order_ID } = req.params;
+  const query = {};
+  query.where = { order_ID: order_ID };
+
+  const { user_ID, user_type } = req.auth;
+  const queryUser = {};
+  queryUser.where = { user_ID: user_ID };
+
+  if (user_type === "admin") {
+    try {
+      const order = await Order.findOne(query);
+      if (order) {
+        res.send(order);
+      } else {
+        res.send({ error: `Order ${order_ID} not found` });
+      }
+    } catch (err) {
+      res.status(400).send({ error: `Order ${order_ID} not found` });
+    }
+  } else if (user_type === "user") {
+    try {
+      const order = await Order.findAll({
+        where: {
+          [Op.and]: [{ user_ID: user_ID }, { order_ID: order_ID }],
+        },
+      });
+      if (order.length == 0) {
+        res.send(`Order ${order_ID} not found for this user`);
+      } else {
+        res.json(order);
+      }
+    } catch (error) {
+      res.status(400).send({ error: `Unable to get order` });
+    }
+  }
+};
 
 exports.deleteOrder = async (req, res) => {};
 
